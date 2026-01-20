@@ -90,9 +90,9 @@ This approach is significantly more reliable than full-string fuzzy matching for
 
 ---
 
-### One-to-One Match Enforcement
+### One to One Match Enforcement
 
-Each document in the secondary file can be matched **only once**.  This preventsData contamination
+Each document in the secondary file can be matched **only once**.  This preventsData contamination due to multiple similar papers in the source .xlsx
 Unmatched rows are explicitly handled.
 
 ---
