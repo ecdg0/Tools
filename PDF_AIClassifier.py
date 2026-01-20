@@ -24,7 +24,7 @@ import time
 import pdfplumber
 import pandas as pd
 
-# 1) Correctly import the GenAI SDK and types
+#Correctly import the GenAI SDK and types
 from google import genai
 from google.genai.types import HttpOptions, GenerationConfig # HttpOptions might not be strictly needed for public API, but keep for now if other use cases exist
 
@@ -32,7 +32,7 @@ from tqdm import tqdm
 from tenacity import retry, wait_random_exponential, stop_after_attempt
 from dotenv import load_dotenv
 
-# -------- 0.  CLI & paths ----------------------------------------------------
+# -------- CLI & paths ----------------------------------------------------
 
 if len(sys.argv) != 2:
     print("Usage: python classify_papers.py \"<path_to_pdfs>/*.pdf\"")
@@ -52,14 +52,14 @@ for p in DEST.values():
 
 LOG_PATH = BASE_DIR / "log.xlsx"
 
-# Ensure we load the .env from this exact folder:
+# nsure we load the .env from this exact folder:
 dotenv_path = BASE_DIR / ".env"
 load_dotenv(dotenv_path=dotenv_path)
 
 # ----------- Verify API key loading -----------
 api_key = os.getenv("GEMINI_API_KEY")
 if api_key is None:
-    print("ERROR: GEMINI_API_KEY was not found. Make sure you have a .env file with that variable.")
+    print("ERROR: GEMINI_API_KEY was not found. Make sure you have a .env file with that variable")
     print("Get your API key from: https://aistudio.google.com/app/apikey")
     sys.exit(1)
 else:
@@ -180,8 +180,8 @@ def extract_sections(pdf_path: str) -> str:
 
     if not abstract and not introduction:
         lines = full_text.split("\n")
-        first_chunk = "\n".join(lines[:80])    # first ~80 lines
-        last_chunk = "\n".join(lines[-50:])    # last ~50 lines
+        first_chunk = "\n".join(lines[:80])    # first 80 lines
+        last_chunk = "\n".join(lines[-50:])    # last 50 lines
         combined = f"Beginning of paper:\n{first_chunk}\n\nEnd of paper:\n{last_chunk}"
     else:
         combined = (
@@ -464,5 +464,6 @@ for i, pdf in enumerate(tqdm(pdf_files, desc="Classifying")):
         print(f"Moved to: {dest_folder.name}/")
     except Exception as e:
         print(f"Warning: Could not move file {name}: {e}")
+
 
 print(f"\nDone. Log saved to {LOG_PATH}")
